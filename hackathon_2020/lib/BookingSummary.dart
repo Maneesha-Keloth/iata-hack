@@ -3,12 +3,16 @@ import 'package:hackathon_2020/models/FlightSegments.dart';
 import 'package:hackathon_2020/models/partner.dart';
 import 'package:hackathon_2020/models/shipment.dart';
 import 'package:hackathon_2020/models/FlightDetailsForList.dart';
+import 'package:hackathon_2020/models/RateDetails.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 class BookingSummary extends StatefulWidget {
   final Shipment shipmentInfo;
   final AvailabilityListItem flightSegmentInfo;
   final Partner pickupPartner;
   final Partner deliveryPartner;
-  BookingSummary({Key key, this.shipmentInfo,this.flightSegmentInfo,this.pickupPartner,this.deliveryPartner}) : super(key: key);
+  final RateDetails rateDetails;
+  final double total;
+  BookingSummary({Key key, this.shipmentInfo,this.flightSegmentInfo,this.pickupPartner,this.deliveryPartner,this.rateDetails,this.total}) : super(key: key);
   BookingSummaryState createState() => BookingSummaryState();
 }
 class NewItem {
@@ -96,7 +100,7 @@ class BookingSummaryState extends State<BookingSummary> {
                 children: <Widget>[
                   Text('${widget.shipmentInfo.origin}'),
                   Text('${widget.shipmentInfo.destination}'),
-                  Text('872'),
+                  Text('${widget.total}'),
                 ],
               ),
             ])), // body
@@ -150,7 +154,9 @@ class BookingSummaryState extends State<BookingSummary> {
             child: RaisedButton(
               child: Text('Confirm'),
               color: Color(0xffffcc00),
-              onPressed: () {},
+              onPressed: () {
+                Alert(context: context, title: "Confirmation", desc: "Booking Saved Successfully in One Record Server.").show();
+              },
             ),
           ),
         )

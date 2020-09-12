@@ -226,7 +226,7 @@ class _FlightQuotesState extends State<FlightQuotes> {
                     builder: (context) => new PartnerScreen(
                           shipmentInfo: widget.shipmentInfo,
                           flightSegmentInfo: listItem,
-                          rate: new RateDetails(560.0, 100.0, 1, 150),
+                          rate: new RateDetails(double.parse(listItem.quote), listItem.currency, 0, 0),
                         )),
                               ),),
 
@@ -239,9 +239,14 @@ class _FlightQuotesState extends State<FlightQuotes> {
               }
 
               // By default, show a loading spinner.
-              return CircularProgressIndicator(
-                backgroundColor: Colors.cyan,
-                strokeWidth: 5,);
+              return Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child:CircularProgressIndicator(
+                      backgroundColor: Colors.cyan,
+                      strokeWidth: 5,),
+                  )
+              );
             },
           ),
         ),

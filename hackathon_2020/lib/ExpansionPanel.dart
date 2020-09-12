@@ -153,7 +153,7 @@ class ExpansionpanelState extends State<Expansionpanel> {
                   Text(widget.flightSegmentInfo.flightNumber),
                   Text(widget.flightSegmentInfo.flightSegmentOrigin),
                   Text(widget.flightSegmentInfo.flightSegmentDestination),
-                  Text(widget.rate.rate.toString() + 'EUR'),
+                  Text(widget.rate.flightrate.toString() + 'EUR'),
                 ],
               ),
             ])), // body

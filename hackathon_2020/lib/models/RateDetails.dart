@@ -1,7 +1,7 @@
 class RateDetails{
-  RateDetails(this.rate,this.weight,this.piece,this.volume );
-  final double rate;
-  final double weight;
-  final int piece;
-  final double volume;
+  RateDetails(this.flightrate,this.currency,this.pickupRate,this.deliveryRate );
+   double flightrate;
+   String currency;
+   double pickupRate;
+   double deliveryRate;
 }

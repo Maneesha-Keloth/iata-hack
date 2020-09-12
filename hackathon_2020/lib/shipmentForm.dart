@@ -121,6 +121,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                       initialValue: shipmentFormData.commodity,
                       onChanged: (commodity) {
                         shipmentFormData.commodity = commodity;
+                        widget.shipmentState.commodity= commodity;
                       }),
                   IconButton(
                       onPressed: getImage,
@@ -137,6 +138,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                     format: DateFormat("yyyy-MM-dd"),
                     onChanged: (date) {
                       shipmentFormData.shippingDate = date;
+                      widget.shipmentState.shippingDate=date;
                     },
                     decoration: InputDecoration(
                         labelText: "When do you want to ship ?"),
@@ -177,7 +179,9 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                       decoration: InputDecoration(
                           labelText: "How heavy is your shipment ?"),
                       onChanged: (weight) {
+                        print(weight);
                         shipmentFormData.weight = weight;
+                        widget.shipmentState.weight=weight;
                       }),
                   FormBuilderTextField(
                       attribute: "origin",
@@ -243,7 +247,10 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
     );
   }
 
-  void createShipment(BuildContext context, Shipment shipmentObj) async {
+  void createShipment(BuildContext context,Shipment shipmentObj) async {
+    print(widget.shipmentState.weight);
+    print(widget.shipmentState.shippingDate);
+    print(widget.shipmentState.weight);
     print('createShipment');
     var auth = 'Basic ' +
         base64Encode(utf8.encode('4mm5rp9f598ew2tzk4kgz7n8:zYqnNTmVy5'));
@@ -257,6 +264,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
         "grant_type": "client_credentials"
       },
     );
+
     if (responseAuth.statusCode == 200) {
       print(responseAuth.body);
       Map<String, dynamic> map = json.decode(responseAuth.body);
