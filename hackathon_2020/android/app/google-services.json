@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "41054395233",
+    "firebase_url": "https://iatafinal.firebaseio.com",
+    "project_id": "iatafinal",
+    "storage_bucket": "iatafinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41054395233:android:ddccac4a547f2f7bfd4320",
+        "android_client_info": {
+          "package_name": "com.example.hackathon_2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41054395233-vg53buq7np4pgah1rliqtts2udj24li0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Sovsj7f3egi2yF85Eo77ld_1zJ4WdBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41054395233-vg53buq7np4pgah1rliqtts2udj24li0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
