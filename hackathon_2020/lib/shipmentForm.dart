@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:hackathon_2020/models/shipment.dart';
-import 'package:hackathon_2020/checksheet.dart';
 import 'package:hackathon_2020/checklist.dart';
 import 'package:hackathon_2020/ListQuotes.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,7 +16,9 @@ import 'liveAnimalDisplay.dart';
 
 class ShipmentDetailsCaptureForm extends StatefulWidget {
   final Shipment shipmentState;
+
   ShipmentDetailsCaptureForm({Key key, this.shipmentState}) : super(key: key);
+
   @override
   ShipmentDetailsState createState() =>
       ShipmentDetailsState(this.shipmentState);
@@ -30,6 +31,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
   String commodity = "GEN";
   File pickedImage;
   String type = '';
+
   Future<void> getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
@@ -66,15 +68,16 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
           titleTextStyle: new TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               backgroundColor: Colors.black26),
           title: new Text("CheckSheet for " + shipmentFormData.commodity),
-            //content: new CheckListWidget(shipmentState: shipmentFormData),
+            content: new CheckListWidget(shipmentState: shipmentFormData),
             actions: [
             new FlatButton(
+                color: Colors.yellowAccent,
                 child: const Text("Close"),
               onPressed: () {
                   Navigator.of(context).pop(context);
@@ -88,6 +91,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff120c40),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_left, color: Colors.white),
@@ -113,16 +117,23 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
               },
               autovalidate: true,
               child: Column(
-                children: <Widget>[
-                  FormBuilderTextField(
+                children: [
+                  Row(children: [
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "commodity",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       decoration: InputDecoration(
-                          labelText: "What would you like to ship?"),
+                                labelText: "What would you like to ship?",
+                                labelStyle: TextStyle(
+                                    fontSize: 20  ,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       initialValue: shipmentFormData.commodity,
                       onChanged: (commodity) {
                         shipmentFormData.commodity = commodity;
                         widget.shipmentState.commodity= commodity;
-                      }),
+                            })),
                   IconButton(
                       onPressed: getImage,
                       tooltip: "Capture Commodity",
@@ -130,10 +141,12 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                         Icons.photo_camera,
                         color: Colors.blue,
                         size: 30.0,
-                      )),
+                        ))
+                  ]),
                   FormBuilderDateTimePicker(
                     attribute: "date",
                     inputType: InputType.date,
+                    style: TextStyle(color: Color(0xff10c6eb)),
                     initialValue: shipmentFormData.shippingDate,
                     format: DateFormat("yyyy-MM-dd"),
                     onChanged: (date) {
@@ -141,66 +154,117 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                       widget.shipmentState.shippingDate=date;
                     },
                     decoration: InputDecoration(
-                        labelText: "When do you want to ship ?"),
+                        labelText: "When do you want to ship ?",
+                        labelStyle: TextStyle(
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                            color: Color(0xffb0b5b1))),
                   ),
-                  new Text('How big ??'),
+                  Row(children: [
+                    new Text('How big is your shipment??',style: TextStyle(
+                        fontSize: 20,
+                        fontStyle: FontStyle.italic,
+                        color: Color(0xffb0b5b1))),
                   IconButton(
                       tooltip: "Capture Dimensions",
                       icon: Icon(
                     Icons.photo_camera,
                     color: Colors.blue,
                     size: 30.0,
-                  )),
-                  FormBuilderTextField(
+                        ))
+                  ]),
+                  Row(children: [
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "length",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.length.toString(),
-                      decoration: InputDecoration(labelText: "L"),
+                            decoration: InputDecoration(
+                                labelText: "L",
+                                labelStyle: TextStyle(
+                                    fontSize: 25,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       onChanged: (length) {
                         shipmentFormData.length = length;
-                      }),
-                  FormBuilderTextField(
+                            })),
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "width",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.width.toString(),
-                      decoration: InputDecoration(labelText: "B"),
+                            decoration: InputDecoration(
+                                labelText: "B",
+                                labelStyle: TextStyle(
+                                    fontSize: 25,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       onChanged: (width) {
                         shipmentFormData.width = width;
-                      }),
-                  FormBuilderTextField(
+                            })),
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "height",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.height.toString(),
-                      decoration: InputDecoration(labelText: "H"),
+                            decoration: InputDecoration(
+                                labelText: "H",
+                                labelStyle: TextStyle(
+                                    fontSize: 25,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       onChanged: (height) {
                         shipmentFormData.height = height;
-                      }),
+                            })),
+                  ]),
                   FormBuilderTextField(
                       attribute: "weight",
+                      style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.weight.toString(),
                       validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
-                          labelText: "How heavy is your shipment ?"),
+                          labelText: "How heavy is your shipment ?",
+                          labelStyle: TextStyle(
+                              fontSize: 25,
+                              fontStyle: FontStyle.italic,
+                              color: Color(0xffb0b5b1))),
                       onChanged: (weight) {
                         print(weight);
                         shipmentFormData.weight = weight;
                         widget.shipmentState.weight=weight;
                       }),
-                  FormBuilderTextField(
+                  Row(children: [
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "origin",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.origin,
                       validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
-                          labelText: "Where are you shipping it from ?"),
+                                labelText: "Origin",
+                                labelStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       onChanged: (origin) {
                         shipmentFormData.origin = origin;
-                      }),
-                  FormBuilderTextField(
+                            })),
+                    Flexible(
+                        child: FormBuilderTextField(
                       attribute: "destination",
+                            style: TextStyle(color: Color(0xff10c6eb)),
                       initialValue: shipmentFormData.destination,
                       validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
-                          labelText: "Where do you want to ship to ?"),
+                                labelText: "Destination",
+                                labelStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontStyle: FontStyle.italic,
+                                    color: Color(0xffb0b5b1))),
                       onChanged: (destination) {
                         shipmentFormData.destination = destination;
-                      })
+                            }))
+                  ])
                 ],
               ),
             ),
@@ -216,6 +280,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                 ),
                 MaterialButton(
                   child: Text("Get Flights"),
+                  color: Colors.white,
                   onPressed: () {
                     /*if (_fbKey.currentState.saveAndValidate()) {
                       print(_fbKey.currentState.value);
@@ -235,6 +300,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
                 ),
                 MaterialButton(
                   child: Text("Reset"),
+                  color: Colors.yellowAccent,
                   onPressed: () {
                     _fbKey.currentState.reset();
                   },
@@ -260,9 +326,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
         "Content-Type": "application/x-www-form-urlencoded",
         "Authorization": auth
       },
-      body: <String, String>{
-        "grant_type": "client_credentials"
-      },
+      body: <String, String>{"grant_type": "client_credentials"},
     );
 
     if (responseAuth.statusCode == 200) {
@@ -281,12 +345,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
           shipmentObj.dimensionUnit);
       List<dynamic> looseShipmentList = [looseShipment];
       ShipmentDetail shipmentDetails = new ShipmentDetail(
-          1,
-          1,
-          shipmentObj.volumneUnit,
-          1,
-          shipmentObj.weightUnit,
-          null);
+          1, 1, shipmentObj.volumneUnit, 1, shipmentObj.weightUnit, null);
       ShipmentRequest request = new ShipmentRequest(
           shipmentObj.origin, shipmentObj.destination, "G01", shipmentDetails);
       print(jsonEncode(request));
@@ -306,8 +365,7 @@ class ShipmentDetailsState extends State<ShipmentDetailsCaptureForm> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-              new FlightQuotes(
+              builder: (context) => new FlightQuotes(
                 shipmentInfo: shipmentObj,
                 access_token:access_token,
               )),

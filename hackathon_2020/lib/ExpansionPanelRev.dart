@@ -264,8 +264,8 @@ class _PartnerScreenState extends State<PartnerScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(widget.flightSegmentInfo.flightNumbers.toString()),
-                          Text(widget.flightSegmentInfo.route),
+                          Text(widget.flightSegmentInfo.flightNumbers.join(",")),
+                          Text(widget.flightSegmentInfo.route.join("-")),
 
                           Text(widget.flightSegmentInfo.quote + widget.flightSegmentInfo.currency),
                         ],
