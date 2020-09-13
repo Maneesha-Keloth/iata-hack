@@ -203,12 +203,6 @@ class _FlightQuotesState extends State<FlightQuotes> {
               ),
               SizedBox(width: 10),
               AutoSizeText(
-                "${widget.shipmentInfo.weight}",
-                style: TextStyle(fontSize: 16),
-                maxLines: 2,
-              ),
-              SizedBox(width: 10),
-              AutoSizeText(
                 "${widget.shipmentInfo.commodity}",
                 style: TextStyle(fontSize: 16),
                 maxLines: 2,
