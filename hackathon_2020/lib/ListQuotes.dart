@@ -42,21 +42,32 @@ Future<List<AvailabilityListItem>> fetchAllQuotes(Shipment shipment,String acces
     List<AvailabilityListItem> availableFlight=[];
     for(Quote quoteforPlan in quotes){
       print(quoteforPlan.shippingPlan);
-      
       ShippingPlan plan=ShippingPlan.fromJson(quoteforPlan.shippingPlan);
       print(plan.transportTime);
       Iterable iterableRoutes=plan.flights;
       List<Flight> flightsAvailable =
       iterableRoutes.map((l) => Flight.fromJson(l)).toList();
       print(flightsAvailable.length);
-      Price priceforQuote=Price.fromJson(quoteforPlan.price);
+
       AvailabilityListItem availItems=new AvailabilityListItem();
-      print(priceforQuote.currencyCode+' '+priceforQuote.total.toString());
+      if(quoteforPlan.price!=null) {
+        Price priceforQuote = Price.fromJson(quoteforPlan.price);
+        if (priceforQuote != null) {
+          print(
+              priceforQuote.currencyCode + ' ' +
+                  priceforQuote.total.toString());
+          if (priceforQuote.total != null)
       availItems.quote=priceforQuote.total.toString();
+
+          if (priceforQuote.currencyCode != null)
       availItems.currency=priceforQuote.currencyCode;
+        }
+      }else{
+        availItems.quote="NA";
+        availItems.currency='NA';
+      }
       availItems.transportTime=plan.transportTime;
       print(plan.transportTime);
-      String route="";
       String flightNumbers="";
       int count=0;
       for(Flight flight in flightsAvailable){
@@ -64,17 +75,16 @@ Future<List<AvailabilityListItem>> fetchAllQuotes(Shipment shipment,String acces
           availItems.staAtOrign=flight.scheduledTimeOfDeparture.substring(11,16);
           availItems.flightDate=flight.flightDate;
         }
-        route=route+'-'+flight.boardPoint;
         count++;
+        print(availItems.route);
+        availItems.addRoute(flight.boardPoint);
         if(count ==flightsAvailable.length){
           print('for last segment'+flight.scheduledTimeOfArrival);
           availItems.staAtDestination=flight.scheduledTimeOfArrival.substring(11,16);
-          route=route+'-'+flight.offPoint;
+          availItems.addRoute(flight.offPoint);
         }
         availItems.addFlight(flight.marketingCarrierCode+flight.flight);
       }
-      print(route);
-      availItems.route=route;
       availableFlight.add(availItems);
     }
     print(availableFlight.length);

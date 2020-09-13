@@ -28,9 +28,9 @@ class BookingSummaryState extends State<BookingSummary> {
     _pickuppartners = _pickpartnerList;
     _deliverypartners = _delpartnerList;
 
-    NewItem delItem = new NewItem(
+    NewItem flightElem = new NewItem(
         true, // isExpanded ?
-        'Shipment Details :', // header
+        'Booking Summary :', // header
         Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(children: <Widget>[
@@ -51,56 +51,25 @@ class BookingSummaryState extends State<BookingSummary> {
                   ),
                 ],
               ),
+              Text("\n"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text(
-                    '${widget.shipmentInfo.originDescription}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    '${widget.shipmentInfo.destinationDescription}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    '${widget.shipmentInfo.pieces}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Text(
-                    '${widget.shipmentInfo.weight}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Text(
-                    '${widget.shipmentInfo.commodity}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                ],
-              ),
-            ])), // body
+                  Text('${widget.flightSegmentInfo.flightNumbers.join(',')}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
         Icon(
-          Icons.euro_symbol,
+                    Icons.calendar_today,
           color: Colors.blue,
-        ) // iconPic
-        );
-    items.add(delItem);
+                  ),
+                  Text('${widget.flightSegmentInfo.flightDate}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
 
-    NewItem flightElem = new NewItem(
-        true, // isExpanded ?
-        'Flight Details :', // header
-        Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(children: <Widget>[
+                ],
+              ),
+              Text("\n"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text('${widget.shipmentInfo.origin}'),
-                  Text('${widget.shipmentInfo.destination}'),
-                  Text('${widget.total}'),
+                  Text('Total Charges: ${widget.total}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+
                 ],
               ),
             ])), // body
@@ -152,10 +121,10 @@ class BookingSummaryState extends State<BookingSummary> {
         Container(
           child: Center(
             child: RaisedButton(
-              child: Text('Confirm'),
+              child: Text('Booking Saved  with Ref Booking_751276.'),
               color: Color(0xffffcc00),
               onPressed: () {
-                Alert(context: context, title: "Confirmation", desc: "Booking Saved Successfully in One Record Server.").show();
+                Alert(context: context, title: "Confirmation", desc: "Booking Saved Successfully with Ref Booking_751276").show();
               },
             ),
           ),
